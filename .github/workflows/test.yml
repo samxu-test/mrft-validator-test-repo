@@ -29,3 +29,25 @@ jobs:
           fi
         done
         echo "Tests completed successfully!"
+
+    - name: Long running simulation - Step 1
+      run: |
+        echo "Starting long test simulation at $(date)"
+        echo "Waiting 2 minutes..."
+        sleep 120
+        echo "2 minutes completed at $(date)"
+
+    - name: Long running simulation - Step 2
+      run: |
+        echo "Continuing long test at $(date)"
+        echo "Waiting another 2 minutes..."
+        sleep 120
+        echo "4 minutes total completed at $(date)"
+
+    - name: Long running simulation - Step 3
+      run: |
+        echo "Final phase at $(date)"
+        echo "Waiting final 2 minutes..."
+        sleep 120
+        echo "Long test completed successfully at $(date)"
+        echo "Total duration: ~6 minutes"
