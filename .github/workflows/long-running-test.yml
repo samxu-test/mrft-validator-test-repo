@@ -1,0 +1,44 @@
+name: Long Running Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  long-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Initial step
+      run: |
+        echo "Starting long-running test..."
+        echo "This test will run for 5 minutes to test MRFT status transitions"
+        date
+
+    - name: Wait 2 minutes
+      run: |
+        echo "Waiting 2 minutes..."
+        sleep 120
+        echo "2 minutes completed at $(date)"
+
+    - name: Mid-test checkpoint
+      run: |
+        echo "Mid-test checkpoint at $(date)"
+        echo "Test is halfway through..."
+
+    - name: Wait another 2 minutes
+      run: |
+        echo "Waiting another 2 minutes..."
+        sleep 120
+        echo "4 minutes total completed at $(date)"
+
+    - name: Final step
+      run: |
+        echo "Waiting final minute..."
+        sleep 60
+        echo "Long-running test completed successfully at $(date)"
+        echo "Total test duration: ~5 minutes"
