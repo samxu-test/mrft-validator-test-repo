@@ -1,0 +1,1 @@
+Test whitespace handling variations
