@@ -12,3 +12,12 @@ Test trigger content:
 - Performance benchmarks  
 - Extended validation suite
 
+
+
+## 🕒 Workflow Update - 4-minute timing test now active!
+
+The GitHub workflow with 4-minute extended test is now enabled.
+This update will trigger the timing test to demonstrate MRFT skip behavior.
+
+Updated at: Mon Sep 29 17:31:09 PDT 2025
+
