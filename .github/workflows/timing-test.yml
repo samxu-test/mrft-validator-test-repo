@@ -1,0 +1,92 @@
+name: MRFT Timing Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [ main ]
+
+jobs:
+  quick-test:
+    name: Quick Test (30s)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Quick validation
+        run: |
+          echo "Starting quick test..."
+          sleep 30
+          echo "Quick test completed ✅"
+
+  timing-test:
+    name: Extended Test (4 minutes)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          sleep 30
+          echo "Dependencies installed ✅"
+
+      - name: Run integration tests
+        run: |
+          echo "🧪 Starting integration tests..."
+          echo "This test will run for 4 minutes to demonstrate MRFT validation timing"
+          echo ""
+          echo "Expected behavior for PRs with 'Do Not Merge' label:"
+          echo "1. MRFT validation should be SKIPPED (no immediate failure)"
+          echo "2. Aggregated check should wait for this test to complete"
+          echo "3. After 4 minutes, should fail due to 'Do Not Merge' label only"
+          echo ""
+
+          # 4-minute test simulation
+          for i in {1..24}; do
+            echo "⏰ Test progress: $((i * 10))% complete ($(date))"
+            sleep 10
+          done
+
+          echo ""
+          echo "🎉 Extended test completed successfully!"
+          echo "Total runtime: 4 minutes"
+
+  performance-test:
+    name: Performance Test (2 minutes)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Performance benchmarks
+        run: |
+          echo "🚀 Starting performance benchmarks..."
+          sleep 120
+          echo "Performance benchmarks completed ✅"
+
+  final-validation:
+    name: Final Validation
+    runs-on: ubuntu-latest
+    needs: [quick-test, timing-test, performance-test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Final checks
+        run: |
+          echo "✅ All tests completed successfully!"
+          echo "Quick test: PASSED"
+          echo "Extended test (4min): PASSED"
+          echo "Performance test (2min): PASSED"
+          echo ""
+          echo "🎯 MRFT validation timing test results:"
+          echo "- Total test duration: ~4-5 minutes"
+          echo "- MRFT validation behavior should be observable during this time"
